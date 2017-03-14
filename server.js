@@ -50,7 +50,7 @@ app.post("/", function (req, res) {
               } 
           );
 
-      },1000*60*5);
+      },1000*60*60*24);
   }else if(req.body.moduleID == "474689"){
        setTimeout(function(){
           //CURL to the specified module.
