@@ -337,12 +337,10 @@ app.post("/webhook/addressVerifyBot1", function(req, response) {
                 let parsedLocation = JSON.parse(res.body);
                 //should check here if results.length == 0, send to enter address manually module.
                 if (parsedLocation.results.length <= 0) {
-                    setTimeout(() => {
-                        request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelManualAddressModule, function(err, res) {
-                            //response.sendStatus(200);
+                    request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelManualAddressModule, function(err, res) {
+                        //response.sendStatus(200);
 
-                        });
-                    }, 200);
+                    });
 
                 } else {
                     let fullAddress = (parsedLocation.results[0].formatted_address);
@@ -351,20 +349,16 @@ app.post("/webhook/addressVerifyBot1", function(req, response) {
                     //So I better store the lat/long on my own.
                     client.HSET('latestUserChoice', (messengerId), (fullAddress), function(err, res) {
                         if (err) {
-                            setTimeout(() => {
-                                request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
-                                    // response.sendStatus(200);
+                            request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
+                                // response.sendStatus(200);
 
-                                });
-                            }, 200);
+                            });
 
                         } else {
-                            setTimeout(() => {
-                                request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAreYouSureModule + '&addressFromQuery=' + fullAddress, function(err, res) {
-                                    //response.sendStatus(200);
+                            request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAreYouSureModule + '&addressFromQuery=' + fullAddress, function(err, res) {
+                                //response.sendStatus(200);
 
-                                });
-                            }, 200);
+                            });
 
                         }
                     });
@@ -394,7 +388,7 @@ app.post("/webhook/manualAddressBot1", function(req, response) {
         function(err, res) {
             if (err) {
                 request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
-                    response.sendStatus(200);
+                    response.json({});
 
                 });
 
@@ -405,7 +399,7 @@ app.post("/webhook/manualAddressBot1", function(req, response) {
                 //should check here if results.length == 0, send to enter address manually module.
                 if (parsedLocation.results.length <= 0) {
                     request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelManualAddressModule, function(err, res) {
-                        response.sendStatus(200);
+                        response.json({});
                     });
                 } else {
                     let fullAddress = (parsedLocation.results[0].formatted_address);
@@ -415,13 +409,13 @@ app.post("/webhook/manualAddressBot1", function(req, response) {
                     client.HSET('latestUserChoice', (messengerId), (fullAddress), function(err, res) {
                         if (err) {
                             request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
-                                response.sendStatus(200);
+                                response.json({});
 
                             });
 
                         } else {
                             request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAreYouSureModule + '&addressFromQuery=' + fullAddress, function(err, res) {
-                                response.sendStatus(200);
+                                response.json({});
 
                             });
                         }
@@ -450,7 +444,7 @@ app.post("/webhook/sendPostcardBot1", function(req, res) {
     client.hget('latestUserChoice', (messengerUserId), function(err, data) {
         if (err) {
             request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
-                response.sendStatus(200);
+                response.json({});
 
             });
         } else {
@@ -462,14 +456,14 @@ app.post("/webhook/sendPostcardBot1", function(req, res) {
                 });
             } else {
                 request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
-                    response.sendStatus(200);
+                    response.json({});
 
                 });
             }
         }
     });
 
-    res.sendStatus(200);
+    response.json({});
 });
 
 
