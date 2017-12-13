@@ -372,7 +372,7 @@ app.post("/webhook/addressVerifyBot1", function(req, response) {
             }
         });
 
-    response.sendStatus(200);
+    response.json({});
 
 });
 
