@@ -463,7 +463,7 @@ app.post("/webhook/sendPostcardBot1", function(req, res) {
         }
     });
 
-    response.json({});
+    // response.json({});
 });
 
 
