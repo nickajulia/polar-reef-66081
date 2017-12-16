@@ -548,6 +548,52 @@ function addAddressAndSendPostcardBot1(messengerId, fullName, addressString, cal
 }
 //////////END BOT1/////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
+
+///////////////////////////MANYCHAT////////////////////////////////////////////////////
+//////////////////////////LOCATION MAKER //////////////////////////////////////////////
+app.post("/webhook/manyChatgpsLocToAddress", function(req, res) {
+    console.log(req.body);
+    /*request.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + googleMapsGeoLocationKey + '&location_type=ROOFTOP',
+        function(err, res) {
+            if (err) {
+               res.sendStatus(404);
+            } else {
+                let parsedLocation = JSON.parse(res.body);
+                //should check here if results.length == 0, send to enter address manually module.
+                if (parsedLocation.results.length <= 0) {
+                    request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelManualAddressModule, function(err, res) {
+                        //response.sendStatus(200);
+
+                    });
+
+                } else {
+                    let fullAddress = (parsedLocation.results[0].formatted_address);
+                    //This will save details in a local database because Chatfuel isn't reliable...
+                    //parameters get stuck sometimes and the behaviour is unpredictable.
+                    //So I better store the lat/long on my own.
+                    client.HSET('latestUserChoice', (messengerId), (fullAddress), function(err, res) {
+                        if (err) {
+                            request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
+                                // response.sendStatus(200);
+
+                            });
+
+                        } else {
+                            request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAreYouSureModule + '&addressFromQuery=' + fullAddress, function(err, res) {
+                                //response.sendStatus(200);
+
+                            });
+
+                        }
+                    });
+                }
+            }
+        });*/
+    res.sendStatus(200);
+});
+
+////////////////////////////END LOCATION MAKER///////////////////////////////////
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function() {
     console.log('Your app is listening on port ' + listener.address().port);
