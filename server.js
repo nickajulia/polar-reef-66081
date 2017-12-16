@@ -553,45 +553,50 @@ function addAddressAndSendPostcardBot1(messengerId, fullName, addressString, cal
 //////////////////////////LOCATION MAKER //////////////////////////////////////////////
 app.post("/webhook/manyChatgpsLocToAddress", function(req, res) {
     console.log(req.body);
-    let latitude = req.body.address.split(',')[0];
-    let longitude = req.body.address.split(',')[1];
+    if (req.body && req.body.address) {
+        let latitude = req.body.address.split(',')[0];
+        let longitude = req.body.address.split(',')[1];
 
-    request.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + googleMapsGeoLocationKey + '&location_type=ROOFTOP',
-        function(err, resp) {
-            if (err) {
-                res.sendStatus(200);
-
-            } else {
-                let parsedLocation = JSON.parse(resp.body);
-                //should check here if results.length == 0, send to enter address manually module.
-                if (parsedLocation.results.length <= 0) {
-                    //RANGE_INTERPOLATED
-                    request.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + googleMapsGeoLocationKey + '&location_type=RANGE_INTERPOLATED',
-                        function(errr2, ressp2) {
-                            if (err) {
-                                res.sendStatus(200);
-                            } else {
-                                let parsedLocation2 = JSON.parse(ressp2.body);
-                                if (parsedLocation2.results.length <= 0) {
-                                    res.sendStatus(200);
-                                } else {
-                                    let fullAddress2 = (parsedLocation2.results[0].formatted_address);
-                                    res.json({
-                                        address: fullAddress2,
-                                    })
-                                }
-
-                            }
-                        });
+        request.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + googleMapsGeoLocationKey + '&location_type=ROOFTOP',
+            function(err, resp) {
+                if (err) {
+                    res.sendStatus(200);
 
                 } else {
-                    let fullAddress = (parsedLocation.results[0].formatted_address);
-                    res.json({
-                        address: fullAddress,
-                    })
+                    let parsedLocation = JSON.parse(resp.body);
+                    //should check here if results.length == 0, send to enter address manually module.
+                    if (parsedLocation.results.length <= 0) {
+                        //RANGE_INTERPOLATED
+                        request.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + googleMapsGeoLocationKey + '&location_type=RANGE_INTERPOLATED',
+                            function(errr2, ressp2) {
+                                if (err) {
+                                    res.sendStatus(200);
+                                } else {
+                                    let parsedLocation2 = JSON.parse(ressp2.body);
+                                    if (parsedLocation2.results.length <= 0) {
+                                        res.sendStatus(200);
+                                    } else {
+                                        let fullAddress2 = (parsedLocation2.results[0].formatted_address);
+                                        res.json({
+                                            address: fullAddress2,
+                                        })
+                                    }
+
+                                }
+                            });
+
+                    } else {
+                        let fullAddress = (parsedLocation.results[0].formatted_address);
+                        res.json({
+                            address: fullAddress,
+                        })
+                    }
                 }
-            }
-        });
+            });
+    } else {
+        res.sendStatus(200);
+    }
+
 });
 
 ////////////////////////////END LOCATION MAKER///////////////////////////////////
