@@ -553,6 +553,9 @@ function addAddressAndSendPostcardBot1(messengerId, fullName, addressString, cal
 //////////////////////////LOCATION MAKER //////////////////////////////////////////////
 app.post("/webhook/manyChatgpsLocToAddress", function(req, res) {
     console.log(req.body);
+    let latitude = req.body.address.split(',')[0];
+    let longitude = req.body.address.split(',')[1];
+
     /*request.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + googleMapsGeoLocationKey + '&location_type=ROOFTOP',
         function(err, res) {
             if (err) {
