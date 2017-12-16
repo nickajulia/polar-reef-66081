@@ -552,7 +552,6 @@ function addAddressAndSendPostcardBot1(messengerId, fullName, addressString, cal
 ///////////////////////////MANYCHAT////////////////////////////////////////////////////
 //////////////////////////LOCATION MAKER //////////////////////////////////////////////
 app.post("/webhook/manyChatgpsLocToAddress", function(req, res) {
-    console.log(req.body);
     if (req.body && req.body.address) {
         let latitude = req.body.address.split(',')[0];
         let longitude = req.body.address.split(',')[1];
