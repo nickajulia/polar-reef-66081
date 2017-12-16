@@ -565,7 +565,24 @@ app.post("/webhook/manyChatgpsLocToAddress", function(req, res) {
                 let parsedLocation = JSON.parse(resp.body);
                 //should check here if results.length == 0, send to enter address manually module.
                 if (parsedLocation.results.length <= 0) {
-                    res.sendStatus(200);
+                    //RANGE_INTERPOLATED
+                    request.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + googleMapsGeoLocationKey + '&location_type=RANGE_INTERPOLATED',
+                        function(errr2, ressp2) {
+                            if (err) {
+                                res.sendStatus(200);
+                            } else {
+                                let parsedLocation2 = JSON.parse(ressp2.body);
+                                if (parsedLocation2.results.length <= 0) {
+                                    res.sendStatus(200);
+                                } else {
+                                    let fullAddress2 = (parsedLocation2.results[0].formatted_address);
+                                    res.json({
+                                        address: fullAddress2,
+                                    })
+                                }
+
+                            }
+                        });
 
                 } else {
                     let fullAddress = (parsedLocation.results[0].formatted_address);
