@@ -559,7 +559,7 @@ app.post("/webhook/manyChatgpsLocToAddress", function(req, res) {
     request.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + googleMapsGeoLocationKey + '&location_type=ROOFTOP',
         function(err, resp) {
             if (err) {
-                res.sendStatus(404);
+
             } else {
                 let parsedLocation = JSON.parse(resp.body);
                 //should check here if results.length == 0, send to enter address manually module.
