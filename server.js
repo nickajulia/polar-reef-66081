@@ -549,6 +549,252 @@ function addAddressAndSendPostcardBot1(messengerId, fullName, addressString, cal
 //////////END BOT1/////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
 
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/////////////CHATFUEL////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////Added Nick on 21st7//////////////////////////////////////////////////
+////////////BOT2//////
+app.post("/webhook/addressVerifyBot2", function(req, response) {
+    /////for bot 1
+    const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
+    const chatFuelToken = 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74';
+    const chatFuelAreYouSureModule = '5a3b09b9e4b04083e566186e';
+    const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
+    const chatFuelManualAddressModule = '5a3b09b9e4b04083e5661874';
+    const chatFuelAddressNotFoundModule = '5a3b09b9e4b04083e566187c';
+    /////for bot 1
+    let longitude = (req.body.longitude)
+    let latitude = (req.body.latitude);
+    console.log('latitude: ' + latitude);
+    console.log('longitude: ' + longitude);
+    let messengerId = req.body['messenger user id'];
+    //can use the maps api to get also the street number etc..
+    request.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=' + googleMapsGeoLocationKey + '&location_type=ROOFTOP',
+        function(err, res) {
+            if (err) {
+                request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
+                    //response.sendStatus(200);
+
+                });
+
+            } else {
+                let parsedLocation = JSON.parse(res.body);
+                //should check here if results.length == 0, send to enter address manually module.
+                if (parsedLocation.results.length <= 0) {
+                    request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelManualAddressModule, function(err, res) {
+                        //response.sendStatus(200);
+
+                    });
+
+                } else {
+                    let fullAddress = (parsedLocation.results[0].formatted_address);
+                    //This will save details in a local database because Chatfuel isn't reliable...
+                    //parameters get stuck sometimes and the behaviour is unpredictable.
+                    //So I better store the lat/long on my own.
+                    client.HSET('latestUserChoice', (messengerId), (fullAddress), function(err, res) {
+                        if (err) {
+                            request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
+                                // response.sendStatus(200);
+
+                            });
+
+                        } else {
+                            request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAreYouSureModule + '&addressFromQuery=' + fullAddress, function(err, res) {
+                                //response.sendStatus(200);
+
+                            });
+
+                        }
+                    });
+                }
+            }
+        });
+
+    response.json({});
+
+});
+
+app.post("/webhook/manualAddressBot2", function(req, response) {
+    //I should check if something confirm + db update then ask same question and if it's his address send.
+    /////for bot 1
+    const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
+    const chatFuelToken = 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74';
+    const chatFuelAreYouSureModule = '5a3b09b9e4b04083e566186e';
+    const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
+    const chatFuelManualAddressModule = '5a3b09b9e4b04083e5661874';
+    const chatFuelAddressNotFoundModule = '5a3b09b9e4b04083e566187c';
+    /////for bot 1
+
+    let address = (req.body.manualAddress);
+    let messengerId = req.body['messenger user id'];
+
+    request.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + googleMapsGeoLocationKey + '&location_type=ROOFTOP',
+        function(err, res) {
+            if (err) {
+                request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
+                    response.json({});
+
+                });
+
+            } else {
+
+                console.log(res);
+                let parsedLocation = JSON.parse(res.body);
+                //should check here if results.length == 0, send to enter address manually module.
+                if (parsedLocation.results.length <= 0) {
+                    request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelManualAddressModule, function(err, res) {
+                        response.json({});
+                    });
+                } else {
+                    let fullAddress = (parsedLocation.results[0].formatted_address);
+                    //This will save details in a local database because Chatfuel isn't reliable...
+                    //parameters get stuck sometimes and the behavious is unpredictable.
+                    //So I better store the lat/long on my own.
+                    client.HSET('latestUserChoice', (messengerId), (fullAddress), function(err, res) {
+                        if (err) {
+                            request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
+                                response.json({});
+
+                            });
+
+                        } else {
+                            request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAreYouSureModule + '&addressFromQuery=' + fullAddress, function(err, res) {
+                                response.json({});
+
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    //response.sendStatus(200);
+    //will get a text.
+});
+
+
+//setting up the post request
+app.post("/webhook/sendPostcardBot2", function(req, res) {
+    //This should send the data
+    /////for bot 1
+    const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
+    const chatFuelToken = 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74';
+    const chatFuelAreYouSureModule = '5a3b09b9e4b04083e566186e';
+    const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
+    const chatFuelManualAddressModule = '5a3b09b9e4b04083e5661874';
+    const chatFuelAddressNotFoundModule = '5a3b09b9e4b04083e566187c';
+    /////for bot 
+    let requestParams = (req.body);
+    let messengerUserId = requestParams['messenger user id'];
+    client.hget('latestUserChoice', (messengerUserId), function(err, data) {
+        if (err) {
+            request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
+                response.json({});
+
+            });
+        } else {
+            console.log(data)
+            if (data != null && err == null) {
+                let fullName = (requestParams['first name'] + " " + requestParams['last name']);
+                addAddressAndSendPostcardBot1(messengerUserId, fullName, data, function() {
+
+                });
+            } else {
+                request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
+                    response.json({});
+
+                });
+            }
+        }
+    });
+
+    // response.json({});
+});
+
+
+function addAddressAndSendPostcardBot1(messengerId, fullName, addressString, callback) {
+    /////for bot 1
+   const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
+    const chatFuelToken = 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74';
+    const chatFuelAreYouSureModule = '5a3b09b9e4b04083e566186e';
+    const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
+    const chatFuelManualAddressModule = '5a3b09b9e4b04083e5661874';
+    const chatFuelAddressNotFoundModule = '5a3b09b9e4b04083e566187c';
+    /////for bot 
+    let addressArray = addressString.split(',')
+    console.log('Full ADDRESS' + addressString);
+    if (addressString != '') {
+        var street, city, stateZip, country, state, zip;
+        if (addressArray.length == 4) {
+            street = addressArray[0];
+            city = addressArray[1];
+            stateZip = addressArray[2].trim();
+            stateZip = stateZip.split(' ');
+            country = addressArray[3].trim();
+            state = (stateZip[0]).trim();
+            zip = (stateZip[1]).trim();
+        } else if (addressArray.length == 5) {
+            street = addressArray[0] + addressArray[1];
+            city = addressArray[2];
+            stateZip = addressArray[3].trim();
+            stateZip = stateZip.split(' ');
+            country = addressArray[4].trim();
+            state = (stateZip[0]).trim();
+            zip = (stateZip[1]).trim();
+        }
+        Lob.addresses.create({
+            name: fullName,
+            address_line1: street,
+            address_city: city,
+            address_state: state,
+            address_zip: zip,
+            address_country: "US"
+        }, function(err2, res2) {
+            if (!err2 && res2 != null) {
+                console.log("NOTE" + res2.address_line1)
+                Lob.postcards.create({
+                    description: 'Demo Postcard job',
+                    to: {
+                        name: res2.name,
+                        address_line1: res2.address_line1,
+                        address_city: res2.address_city,
+                        address_state: res2.address_state,
+                        address_zip: res2.address_zip
+                    },
+                    from: null, //for now, you can also add your address on here.
+                    front: 'https://lob.com/postcardfront.pdf',
+                    back: 'https://lob.com/postcardback.pdf'
+                }, function(err3, res3) {
+                    console.log(err3);
+                    console.log(res3);
+                    if (!err3 && res3 != null) {
+                        request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelSentModule + '&deliveryTimeData=' + res3.expected_delivery_date, function(err, res) {
+
+                        });
+                    } else {
+                        request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
+
+                        });
+                    }
+                });
+            } else {
+                request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
+
+                });
+            }
+        });
+    } else {
+        //should send some kind of error.
+        request.post('https://api.chatfuel.com/bots/' + chatFuelBotId + '/users/' + messengerId + '/send?chatfuel_token=' + chatFuelToken + '&chatfuel_block_id=' + chatFuelAddressNotFoundModule, function(err, res) {
+
+        });
+
+    }
+}
+//////////END BOT2/////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
+
 ///////////////////////////MANYCHAT////////////////////////////////////////////////////
 //////////////////////////LOCATION MAKER //////////////////////////////////////////////
 app.post("/webhook/manyChatgpsLocToAddress", function(req, res) {
