@@ -11,7 +11,7 @@ var app = express();
 var Lob = require('lob')('test_83b0fa83841e210a3e7cebdef01acaec589', {
     apiVersion: '2016-06-30' //this is for backward compatibilty
 });
-const googleMapsGeoLocationKey = 'AIzaSyAXPdt5zyv89OrD-H4fhcBYVNGldxDfAEo';
+const googleMapsGeoLocationKey = process.env.MAPS_API_KEY;
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
