@@ -559,7 +559,7 @@ app.post("/webhook/addressVerifyBot2", function(req, response) {
     /////for bot 1
     const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
     const chatFuelToken = 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74';
-    const chatFuelAreYouSureModule = '5a3b09b9e4b04083e566186e';
+    const chatFuelAreYouSureModule = '5a3b0794e4b04083e56268d8';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
     const chatFuelManualAddressModule = '5a3b09b9e4b04083e5661874';
     const chatFuelAddressNotFoundModule = '5a3b09b9e4b04083e566187c';
