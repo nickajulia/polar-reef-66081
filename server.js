@@ -802,7 +802,7 @@ function addAddressAndSendPostcardBot1(messengerId, fullName, addressString, cal
 ////////////BOT 3 Ecomm demo//////
 app.post("/webhook/addressVerifyBot3", function(req, response) {
     /////for bot 1
-    const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
+    const chatFuelBotId = '5a809694e4b01cc9fb8865b6';
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
     const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab6';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
@@ -863,7 +863,7 @@ app.post("/webhook/addressVerifyBot3", function(req, response) {
 app.post("/webhook/manualAddressBot3", function(req, response) {
     //I should check if something confirm + db update then ask same question and if it's his address send.
     /////for bot 1
-    const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
+    const chatFuelBotId = '5a809694e4b01cc9fb8865b6';
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
     const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab6';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
@@ -922,7 +922,7 @@ app.post("/webhook/manualAddressBot3", function(req, response) {
 app.post("/webhook/sendPostcardBot3", function(req, res) {
     //This should send the data
     /////for bot 1
-    const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
+    const chatFuelBotId = '5a809694e4b01cc9fb8865b6';
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
     const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab6';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
@@ -959,7 +959,7 @@ app.post("/webhook/sendPostcardBot3", function(req, res) {
 
 function addAddressAndSendPostcardBot3(messengerId, fullName, addressString, callback) {
     /////for bot 1
-  const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
+  const chatFuelBotId = '5a809694e4b01cc9fb8865b6';
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
     const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab6';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
