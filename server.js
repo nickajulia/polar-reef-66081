@@ -804,7 +804,7 @@ app.post("/webhook/addressVerifyBot3", function(req, response) {
     /////for bot 1
     const chatFuelBotId = '5a809694e4b01cc9fb8865b6';
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
-    const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab6';
+    const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab3';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
     const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
     const chatFuelAddressNotFoundModule = '5a84cf56e4b0caec2b23f30f';
@@ -865,7 +865,7 @@ app.post("/webhook/manualAddressBot3", function(req, response) {
     /////for bot 1
     const chatFuelBotId = '5a809694e4b01cc9fb8865b6';
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
-    const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab6';
+    const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab3';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
     const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
     const chatFuelAddressNotFoundModule = '5a84cf56e4b0caec2b23f30f';
@@ -924,7 +924,7 @@ app.post("/webhook/sendPostcardBot3", function(req, res) {
     /////for bot 1
     const chatFuelBotId = '5a809694e4b01cc9fb8865b6';
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
-    const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab6';
+    const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab3';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
     const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
     const chatFuelAddressNotFoundModule = '5a84cf56e4b0caec2b23f30f';
@@ -961,7 +961,7 @@ function addAddressAndSendPostcardBot3(messengerId, fullName, addressString, cal
     /////for bot 1
   const chatFuelBotId = '5a809694e4b01cc9fb8865b6';
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
-    const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab6';
+    const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab3';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
     const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
     const chatFuelAddressNotFoundModule = '5a84cf56e4b0caec2b23f30f';
