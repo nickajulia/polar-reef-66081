@@ -867,7 +867,7 @@ app.post("/webhook/manualAddressBot3", function(req, response) {
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
     const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab3';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
-    const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
+    //const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
     const chatFuelAddressNotFoundModule = '5a84cf56e4b0caec2b23f30f';
     /////for bot 1
 
@@ -926,7 +926,7 @@ app.post("/webhook/sendPostcardBot3", function(req, res) {
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
     const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab3';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
-    const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
+    //const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
     const chatFuelAddressNotFoundModule = '5a84cf56e4b0caec2b23f30f';
     /////for bot 
     let requestParams = (req.body);
@@ -963,7 +963,7 @@ function addAddressAndSendPostcardBot1(messengerId, fullName, addressString, cal
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
     const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab3';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
-    const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
+    //const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
     const chatFuelAddressNotFoundModule = '5a84cf56e4b0caec2b23f30f';
     /////for bot 
     let addressArray = addressString.split(',')
