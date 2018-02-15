@@ -800,11 +800,11 @@ function addAddressAndSendPostcardBot1(messengerId, fullName, addressString, cal
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////Added Nick on 2 14 18//////////////////////////////////////////////////
 ////////////BOT 3 Ecomm demo//////
-app.post("/webhook/addressVerifyBot2", function(req, response) {
+app.post("/webhook/addressVerifyBot3", function(req, response) {
     /////for bot 1
     const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
-    const chatFuelAreYouSureModule = '5a3b0794e4b04083e56268d8';
+    const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab6';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
     const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
     const chatFuelAddressNotFoundModule = '5a84cf56e4b0caec2b23f30f';
@@ -860,15 +860,15 @@ app.post("/webhook/addressVerifyBot2", function(req, response) {
 
 });
 
-app.post("/webhook/manualAddressBot2", function(req, response) {
+app.post("/webhook/manualAddressBot3", function(req, response) {
     //I should check if something confirm + db update then ask same question and if it's his address send.
     /////for bot 1
     const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
-    const chatFuelToken = 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74';
-    const chatFuelAreYouSureModule = '5a3b09b9e4b04083e566186e';
+    const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
+    const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab6';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
-    const chatFuelManualAddressModule = '5a3b09b9e4b04083e5661874';
-    const chatFuelAddressNotFoundModule = '5a3b09b9e4b04083e566187c';
+    const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
+    const chatFuelAddressNotFoundModule = '5a84cf56e4b0caec2b23f30f';
     /////for bot 1
 
     let address = (req.body.manualAddress);
@@ -919,15 +919,15 @@ app.post("/webhook/manualAddressBot2", function(req, response) {
 
 
 //setting up the post request
-app.post("/webhook/sendPostcardBot2", function(req, res) {
+app.post("/webhook/sendPostcardBot3", function(req, res) {
     //This should send the data
     /////for bot 1
     const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
-    const chatFuelToken = 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74';
-    const chatFuelAreYouSureModule = '5a3b09b9e4b04083e566186e';
+    const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
+    const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab6';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
-    const chatFuelManualAddressModule = '5a3b09b9e4b04083e5661874';
-    const chatFuelAddressNotFoundModule = '5a3b09b9e4b04083e566187c';
+    const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
+    const chatFuelAddressNotFoundModule = '5a84cf56e4b0caec2b23f30f';
     /////for bot 
     let requestParams = (req.body);
     let messengerUserId = requestParams['messenger user id'];
@@ -957,14 +957,14 @@ app.post("/webhook/sendPostcardBot2", function(req, res) {
 });
 
 
-function addAddressAndSendPostcardBot1(messengerId, fullName, addressString, callback) {
+function addAddressAndSendPostcardBot3(messengerId, fullName, addressString, callback) {
     /////for bot 1
-   const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
-    const chatFuelToken = 'qwYLsCSz8hk4ytd6CPKP4C0oalstMnGdpDjF8YFHPHCieKNc0AfrnjVs91fGuH74';
-    const chatFuelAreYouSureModule = '5a3b09b9e4b04083e566186e';
+  const chatFuelBotId = '5a3af3dfe4b04083e5375ed4';
+    const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
+    const chatFuelAreYouSureModule = '5a84ce9ae4b0caec2b223ab6';
     const chatFuelSentModule = '5a3b09b9e4b04083e5661877';
-    const chatFuelManualAddressModule = '5a3b09b9e4b04083e5661874';
-    const chatFuelAddressNotFoundModule = '5a3b09b9e4b04083e566187c';
+    const chatFuelManualAddressModule = '5a84cf56e4b0caec2b23f307';
+    const chatFuelAddressNotFoundModule = '5a84cf56e4b0caec2b23f30f';
     /////for bot 
     let addressArray = addressString.split(',')
     console.log('Full ADDRESS' + addressString);
