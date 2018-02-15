@@ -957,7 +957,7 @@ app.post("/webhook/sendPostcardBot3", function(req, res) {
 });
 
 
-function addAddressAndSendPostcardBot3(messengerId, fullName, addressString, callback) {
+function addAddressAndSendPostcardBot1(messengerId, fullName, addressString, callback) {
     /////for bot 1
   const chatFuelBotId = '5a809694e4b01cc9fb8865b6';
     const chatFuelToken = 'mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD';
